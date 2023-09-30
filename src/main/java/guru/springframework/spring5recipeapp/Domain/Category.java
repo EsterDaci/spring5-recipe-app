@@ -6,13 +6,22 @@ import java.util.Set;
 
 @Entity
 public class Category {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String description;
+
     @ManyToMany(mappedBy = "categories")
-    private Set<Recipe> recipeSet;
+    private Set<Recipe> recipes;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getDescription() {
         return description;
@@ -22,19 +31,11 @@ public class Category {
         this.description = description;
     }
 
-    public Set<Recipe> getRecipeSet() {
-        return recipeSet;
+    public Set<Recipe> getRecipes() {
+        return recipes;
     }
 
-    public void setRecipeSet(Set<Recipe> recipeSet) {
-        this.recipeSet = recipeSet;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public void setRecipes(Set<Recipe> recipes) {
+        this.recipes = recipes;
     }
 }
