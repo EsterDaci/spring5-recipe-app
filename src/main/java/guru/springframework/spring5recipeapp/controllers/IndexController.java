@@ -1,10 +1,12 @@
 package guru.springframework.spring5recipeapp.controllers;
 
 import guru.springframework.spring5recipeapp.services.RecipeService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+@Slf4j
 @Controller
 public class IndexController {
 //    private CategoryRepository categoryRepository;
@@ -22,16 +24,12 @@ public class IndexController {
     }
 
 
-    @RequestMapping({"","/","/index"})
-    public String getIndexPage(Model model){
-//        Optional<Category> category=categoryRepository.findByDescription("American");
-//        Optional<UnitOfMeasure> unitOfMeasure=unitOfMeasureRepository.findByDescription("Teaspoon");
-//
-//        System.out.println("Cat ID is:" + category.get().getId());
-//        System.out.println("UOM ID is:" + unitOfMeasure.get().getId());
+
+    @RequestMapping({"", "/", "/index"})
+    public String getIndexPage(Model model) {
+        log.debug("Getting Index page");
 
         model.addAttribute("recipes", recipeService.getRecipes());
-
 
         return "index";
     }
