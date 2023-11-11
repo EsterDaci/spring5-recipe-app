@@ -1,11 +1,11 @@
 package guru.springframework.spring5recipeapp.controllers;
 
+import guru.springframework.spring5recipeapp.commands.RecipeCommand;
 import guru.springframework.spring5recipeapp.services.RecipeService;
 import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class RecipeController {
@@ -22,5 +22,17 @@ public class RecipeController {
 
         return "recipe/show";
 
+    }
+    @RequestMapping("recipe/new")
+    public String newRecipe(Model model){
+        model.addAttribute("recipe",new RecipeCommand());
+        return "recipe/recipeform";
+    }
+
+    @PostMapping("recipe")
+    public String saveOrUpdate(@ModelAttribute RecipeCommand command){
+        RecipeCommand savedCommand = recipeService.saveRecipeCommand(command);
+
+        return "redirect:/recipe/show/" + savedCommand.getId();
     }
 }
